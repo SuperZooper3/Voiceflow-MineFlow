@@ -2,7 +2,9 @@ import threading
 import re
 
 default_log_path = "minecraft-server/logs/latest.log"
-default_check_interval = 1
+default_check_interval = 0.5
+
+printing=False
 
 class ChatLogMonitor():
     def __init__(self,path=default_log_path,check_interval=default_check_interval) -> None:
@@ -20,26 +22,44 @@ class ChatLogMonitor():
             self.last_line_read = len(lines)
             return new_lines
         
-    def yeild_player_message(self):
+    def yield_player_message(self):
+        # print("buffer2", self.message_buffer, len(self.message_buffer))
         while len(self.message_buffer) > 0:
             candidate = self.message_buffer.pop(0)
+            # print("candidate", candidate)
             player_message_match = re.match(r"\[\d{2}:\d{2}:\d{2}] \[Server thread/INFO\]: <(.*?)> (.*)", candidate)
             if player_message_match:
                 yield (player_message_match.group(1), player_message_match.group(2))
-
+        
+        self.message_buffer = []
+        
     def start_monitor(self):
+        with open(self.path, 'r') as f:
+            lines = f.readlines()
+            lines = [line.strip().replace("\n"," ") for line in lines]
+            self.last_line_read = len(lines)
+        self.monitor()
+
+    def monitor(self):
         if not self.alive:
             return
         
-        threading.Timer(self.check_interval, self.start_monitor).start()
         new_lines = self.get_last_lines()
         self.message_buffer.extend(new_lines)
+
+        if printing and self.message_buffer:
+            message_generator = self.yield_player_message()
+            for player, message in message_generator:
+                print(f"{player}: {message}")
+                
+        threading.Timer(self.check_interval, self.monitor).start()
 
     def stop_monitor(self):
         self.alive = False
 
 if __name__ == "__main__":
     monitor = ChatLogMonitor()
+    printing = True
     print("Starting monitor. Press Enter to stop.")
     monitor.start_monitor()
     input()

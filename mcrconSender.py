@@ -1,7 +1,11 @@
 from mcrcon import MCRcon
 
+RCON_IP = "localhost"
+RCON_PORT = 25575
+RCON_PASSWORD = "voiceflow"
+
 class RconSender():
-    def __init__(self, ip, port, password):
+    def __init__(self, ip=RCON_IP, port=RCON_PORT, password=RCON_PASSWORD):
         self.ip = ip
         self.port = port
         self.password = password
@@ -19,9 +23,7 @@ class RconSender():
             return f"Error connecting to server {self.ip}:{self.port} with password = {self.password}."
 
 if __name__ == "__main__":
-    RCON_IP = "localhost"
-    RCON_PORT = 25575
-    RCON_PASSWORD = "voiceflow"
+    
     rcon = RconSender(RCON_IP, RCON_PORT, RCON_PASSWORD)
     print(rcon.send("say Hello, Minecraft World!"))
     print(rcon.send("say Hello, Minecraft World!"))
