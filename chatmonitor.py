@@ -5,7 +5,7 @@ default_log_path = "minecraft-server/logs/latest.log"
 default_check_interval = 1
 
 class ChatLogMonitor():
-    def __init__(self,path,check_interval) -> None:
+    def __init__(self,path=default_log_path,check_interval=default_check_interval) -> None:
         self.path = path
         self.check_interval = check_interval
         self.last_line_read = 0
@@ -39,7 +39,7 @@ class ChatLogMonitor():
         self.alive = False
 
 if __name__ == "__main__":
-    monitor = ChatLogMonitor(log_path, check_interval)
+    monitor = ChatLogMonitor()
     print("Starting monitor. Press Enter to stop.")
     monitor.start_monitor()
     input()
