@@ -4,7 +4,7 @@ from dotenv import load_dotenv # pip install python-dotenv
 
 load_dotenv() # load environment variables from .env file
 
-class VoiceFlowInteractor:
+class VoiceFlowInteractor: # A class to interact with the VoiceFlow API
     def __init__(self):
         self.api_key = os.getenv("VF_API_KEY")
         self.users = set()
@@ -21,13 +21,13 @@ class VoiceFlowInteractor:
         if user_id not in self.users: # if a user woke up the voiceflow dialog, create a new user and start the conversation
             if "voiceflow" in text.lower():
                 self.users.add(user_id)
-                return self.send_request(user_id, {'type': 'launch'})
+                return self.send_request(user_id, {'type': 'launch'}) # send a launch request to the voiceflow API to start the conversation
             else:
                 return False
-        else:
+        else: # if the user is already in the conversation, send a text request to the voiceflow API
             return self.send_request(user_id, {'type': 'text', 'payload': text})
         
-    def parse_response(self, user_id, response):
+    def parse_response(self, user_id, response): # extract voiceflow's answers from the response
         for trace in response:
             if trace['type'] == 'speak' or trace['type'] == 'text':
                 yield trace['payload']['message'].replace("\n"," ")
