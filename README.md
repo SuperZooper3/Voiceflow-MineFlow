@@ -2,6 +2,8 @@
 
 A Minecraft integration for Voiceflow!
 
+![image](https://github.com/SuperZooper3/Voiceflow-MineFlow/assets/54122151/66ed4c32-53f4-4017-8d75-5a37c3155a78)
+
 Built based off the Python example from Voiceflow's [Python API Example](https://github.com/voiceflow/api-examples/tree/master/python).
 
 We connect to the Minecraft server's RCON interface to send commands to the server, and monitor the server's log file to get player messages.
