@@ -16,6 +16,8 @@ alive = True
 # Send a message to all players that the voiceflow integration is active
 rcon.send("tellraw @a [\"\",{\"text\":\"Voiceflow is now active! Type '!stop' to stop it.\",\"color\":\"dark_aqua\"}]")
 
+print("Starting...")
+
 while alive:
     # Get messages from in-game chat
     for user, message in monitor.yield_player_message():
@@ -42,7 +44,9 @@ while alive:
                     # Check if the message is a command, and if so, run it
                     if message.startswith("COMMAND: "):
                         raw_command = message.replace("COMMAND: ","").replace("/","")
-                        command = f"execute as {user} run {raw_command}"
+                        if "`" in raw_command:
+                            raw_command = raw_command.split("`")[1]
+                        command = f"execute as {user} at {user} run {raw_command}"
                         print(f"Sending command: {command}")
                         print(rcon.send(command))
 
@@ -58,7 +62,7 @@ while alive:
     messages_to_send = {}
 
     time.sleep(0.5)
-    print("Looping...")
+    # print("Looping...")
 
 # Confrimg stop and close the connections
 print("Stopping...")
