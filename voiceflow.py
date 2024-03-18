@@ -2,7 +2,9 @@ import requests # pip install requests
 import os # built-in
 from dotenv import load_dotenv # pip install python-dotenv
 
-load_dotenv() # load environment variables from .env file
+# override the environment variables with the ones in the .env file
+del os.environ['VF_API_KEY']
+load_dotenv()
 
 class VoiceFlowInteractor: # A class to interact with the VoiceFlow API
     def __init__(self):
@@ -13,7 +15,7 @@ class VoiceFlowInteractor: # A class to interact with the VoiceFlow API
         response = requests.post(
             f'https://general-runtime.voiceflow.com/state/user/{user_id}/interact',
             json={ 'request': request },
-            headers={ 'Authorization': self.api_key },
+            headers={ 'Authorization': self.api_key, 'versionID': 'production', },
         )
         return response.json()
 
