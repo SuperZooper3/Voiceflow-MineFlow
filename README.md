@@ -1,6 +1,6 @@
 # Voiceflow-MineFlow
 
-A Minecraft integration for Voiceflow!
+A Minecraft integration for Voiceflow! Demo video: https://youtu.be/yUGFjKahGUQ
 
 ![image](https://github.com/SuperZooper3/Voiceflow-MineFlow/assets/54122151/66ed4c32-53f4-4017-8d75-5a37c3155a78)
 
