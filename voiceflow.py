@@ -15,7 +15,7 @@ class VoiceFlowInteractor: # A class to interact with the VoiceFlow API
         response = requests.post(
             f'https://general-runtime.voiceflow.com/state/user/{user_id}/interact',
             json={ 'request': request },
-            headers={ 'Authorization': self.api_key, 'versionID': 'production', },
+            headers={ 'Authorization': self.api_key, 'versionID': 'production'},
         )
         return response.json()
 
