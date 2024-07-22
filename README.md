@@ -28,3 +28,7 @@ We connect to the Minecraft server's RCON interface to send commands to the serv
 1. Run the Minecraft server with `java -Xmx1024M -Xms1024M -jar minecraft_server.1.20.4.jar`.
 2. Start the Voiceflow integration with `python main.py`.
 3. To stop it, from in game, type `!stop` in the chat.
+
+<a href="https://trackgit.com">
+<img src="https://us-central1-trackgit-analytics.cloudfunctions.net/token/ping/lyx0xba4nq95xe2hpdnl" alt="trackgit-views" />
+</a>
